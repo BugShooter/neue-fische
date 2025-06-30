@@ -1,12 +1,12 @@
 {
   "name": "day-004",
   "version": "1.0.0",
-  "description": "Exercises: Object - Oriented Programming in TypeScript 🔹 1. Creating Basic Classes Objective: Practice class creation and constructors.",
-  "main": "excercises-oop.js",
+  "description": "TypeScript project for Day 004",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "node dist/excercises-oop.js",
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/index.js",
     "watch": "tsc --watch",
     "clean": "rm -rf dist"
   },
