@@ -1,0 +1,25 @@
+{
+  "name": "day-005",
+  "version": "1.0.0",
+  "description": "TypeScript Networking Exercises: fetch & axios",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "http-server ./ -p 8000",
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --project tsconfig.json --watch",
+    "start": "tsc --project tsconfig.json && node dist/index.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.4",
+    "@types/node": "^24.0.8",
+    "http-server": "^14.1.1"
+  }
+}

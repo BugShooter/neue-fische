@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <title>Day 005 - Exercises</title>
+    <script src="dist/exercieses-api-request.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1>Day 005 - Exercises</h1>
+    <h2>Exercise 1: Fetch & Log Posts</h2>
+    <p>Check the console for results.</p>
+    <h2>Exercise 2: Display Posts in the DOM</h2>
+    <ul id="postList"></ul>
+    <h2>Exercise 3: Handle Errors Gracefully</h2>
+    <p id="errorMsg"></p>
+    <h2>Exercise 4: Create a New Post with POST Request</h2>
+    <form id="postForm" action="#">
+        <input type="text" name="userId" placeholder="User ID" required>
+        <input type="text" name="title" placeholder="Title" required>
+        <textarea name="body" placeholder="Body" required></textarea>
+        <button type="submit">Create Post</button>
+    </form>
+    <h2>Exercise 5: Install & Import Axios (a simple GET request)</h2>
+    <p>Check the console for results.</p>
+    <h2>Exercise 6: Use Axios to Get Users</h2>
+    <ul id="exercise6"></ul>
+    <h2>Exercise 7: Create a New User(Fake)</h2>
+    <p>Check the console for results.</p>
+    <h2>Exercise 8: Build a Small UI for API Interaction</h2>
+    <div id="exercise8">
+        <form id="exercise8-post-form" action="#">
+            <input type="text" name="userId" placeholder="User ID" required>
+            <input type="text" name="title" placeholder="Title" required>
+            <textarea name="body" placeholder="Body" required></textarea>
+            <button type="submit">Create Post</button>
+        </form>
+        <button id="exercise8-refresh-button" type="button">Refresh</button>
+        <ul id="exercise8-posts"></ul>
+    </div>
+</body>
