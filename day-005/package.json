@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "http-server ./ -p 8000",
     "build": "tsc --project tsconfig.json",
+    "clean": "rm -rf dist",
     "dev": "tsc --project tsconfig.json --watch",
     "start": "tsc --project tsconfig.json && node dist/index.js"
   },
