@@ -35,17 +35,11 @@ interface Post {
 async function exercise1() {
     log("Exercise 1: Fetch & Log Posts");
     async function fetchPosts(): Promise<Post[]> {
-        // try {
         const response = await fetch('https://jsonplaceholder.typicode.com/posts');
         if (!response.ok)
             throw new Error("Failed to fetch posts");
         const posts: Post[] = await response.json();
         return posts;
-        // } catch (error) {
-        //     if (error instanceof Error) {
-        //         throw new Error(`fetchPosts: ${error.message}`);
-        //     }
-        // }
     }
     await fetchPosts()
         .then((posts) => {
@@ -56,16 +50,6 @@ async function exercise1() {
         });
 
 }
-
-
-// fetchPosts()
-//     .then((posts) => {
-//         posts.forEach(post => log(`id: ${post.id}, userId: ${post.userId}, title: ${post.title}`))
-//     })
-//     .catch(error => {
-//         log("Exercise 1:", error.message);
-//     });
-// log();
 
 // Exercise 2: Display Posts in the DOM
 
@@ -115,7 +99,7 @@ async function exercise3() {
         try {
             const response = await fetch('https://jsonplaceholder.typicode.com/posts-fail');
             if (!response.ok)
-                throw new Error("Failed to fetch posts");
+                throw new Error(`Failed to fetch posts: ${response.status}`);
             const posts: Post[] = await response.json();
             return posts;
         } catch (error) {
@@ -259,10 +243,13 @@ async function exercise7() {
 // Use axios.get to refresh and show the full list of posts
 async function exercise8() {
     log("Exercise 8: Build a Small UI for API Interaction");
-    if (typeof window === undefined) return;
+    if (typeof window === "undefined") {
+        log("Exercise 8: applicable only for browser");
+        return;
+    }
 
     async function createPost(newPost: NewPost): Promise<Post> {
-        const response = await axios.post<Post>(('https://jsonplaceholder.typicode.com/posts');
+        const response = await axios.post<Post>('https://jsonplaceholder.typicode.com/posts');
         // TODO: check a response status
         const post: Post = response.data;
         // TODO: validate a schema
@@ -270,7 +257,7 @@ async function exercise8() {
     }
 
     async function getPosts(): Promise<Post[]> {
-        const response = await axios.get<Post[]>(('https://jsonplaceholder.typicode.com/posts');
+        const response = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
         // TODO: check a response status
         const posts: Post[] = response.data;
         // TODO: validate a schema
@@ -329,6 +316,43 @@ async function exercise8() {
 // Error detection
 // Type annotations
 
+async function bonusExerciese() {
+    log("Bonus Exercise: Handle Errors Gracefully (axios)");
+    async function fetchPosts(): Promise<Post[]> {
+        try {
+            const response = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts-fail');
+            const posts: Post[] = response.data;
+            return posts;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                log('fetchPosts: Axios error:', error.response?.data);
+            }
+            if (error instanceof Error) {
+                throw new Error(`fetchPosts: ${error.message}`);
+            }
+            throw new Error("fetchPosts: An unknown error occurred while fetching posts");
+        }
+    }
+    await fetchPosts()
+        .then((posts) => {
+            log("Bonus Exercise:", posts[0]?.title, "\n")
+        })
+        .catch(error => {
+            if (typeof window !== 'undefined') {
+                const body = document.getElementsByTagName('body')[0] as HTMLBodyElement;
+                let errorMsg = document.getElementById('bonus-errorMsg');
+                if (!errorMsg) {
+                    errorMsg = document.createElement('p');
+                    errorMsg.id = 'errorMsg';
+                    body.appendChild(errorMsg);
+                }
+                errorMsg.textContent = error.message;
+            } else {
+                log("Bonus Exercise:", error.message, "\n");
+            }
+        });
+}
+
 // Sequential execution of exercises
 (async function main() {
     await exercise1();
@@ -340,4 +364,5 @@ async function exercise8() {
     await exercise6();
     await exercise7();
     await exercise8();
+    await bonusExerciese();
 })();
