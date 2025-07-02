@@ -1,4 +1,3 @@
-import { getCharacter } from "../api/getCharacter";
 import { getCharacterName, isCharacterAlive } from "./characterService";
 import axios, { AxiosError } from "axios";
 
@@ -62,7 +61,9 @@ describe("Task 5: Status-Based Logic", () => {
 
     // [x] Mock Axios to throw and ensure an error is handled correctly
     test("isCaracterAlive() handled axios error", async () => {
-        (axios.get as jest.Mock).mockRejectedValue(new Error("Some error"));
+        (axios.get as jest.Mock).mockRejectedValue(
+            new Error("Some error")
+        );
 
         await expect(isCharacterAlive(1)).rejects.toThrow();
     });
