@@ -13,4 +13,13 @@ describe("isPalindrome(word:string):string", () => {
     test("'' → true", () => {
         expect(isPalindrome('')).toBe(true);
     });
+    test("' ' → true", () => {
+        expect(isPalindrome(' ')).toBe(true);
+    });
+    test("'MadaM' → true", () => {
+        expect(isPalindrome('MadaM')).toBe(true);
+    });
+    test("'Madam' → false", () => {
+        expect(isPalindrome('Madam')).toBe(false);
+    });
 });
