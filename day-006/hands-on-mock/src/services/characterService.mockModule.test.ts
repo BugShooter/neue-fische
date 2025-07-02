@@ -1,4 +1,5 @@
-import { getCharacterName } from "./characterService";
+import { getCharacter } from "../api/getCharacter";
+import { getCharacterName, isCharacterAlive } from "./characterService";
 import axios, { AxiosError } from "axios";
 
 jest.mock('axios');
@@ -27,4 +28,42 @@ test("Test Error Handling", async () => {
     );
 
     await expect(getCharacterName(id)).rejects.toThrow(`getCharacter: request failed for ID: ${id}`);
+});
+
+describe("Task 5: Status-Based Logic", () => {
+
+    // [x] Mock the character to have status "Alive" and expect true
+    test("status is 'Alive' -> true", async () => {
+        (axios.get as jest.Mock).mockResolvedValue({
+            data: {
+                id: 1,
+                name: "Test name",
+                status: "Alive"
+            }
+        });
+
+        const status = await isCharacterAlive(1);
+        expect(status).toBe(true);
+    });
+
+    // [x] Mock status "Dead" and expect false
+    test("status is 'Dead' -> false", async () => {
+        (axios.get as jest.Mock).mockResolvedValue({
+            data: {
+                // id: 1,
+                // name: "Test name",
+                status: "Dead"
+            }
+        });
+
+        const status = await isCharacterAlive(1);
+        expect(status).toBe(false);
+    });
+
+    // [x] Mock Axios to throw and ensure an error is handled correctly
+    test("isCaracterAlive() handled axios error", async () => {
+        (axios.get as jest.Mock).mockRejectedValue(new Error("Some error"));
+
+        await expect(isCharacterAlive(1)).rejects.toThrow();
+    });
 });
