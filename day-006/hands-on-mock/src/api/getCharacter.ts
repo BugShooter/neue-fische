@@ -1,18 +1,26 @@
 import axios from "axios"
+import { z } from "zod";
 
-export interface Character {
-    id: number;
-    name: string;
-    status: string;
-}
+// export interface Character {
+//     id: number;
+//     name: string;
+//     status: string;
+// }
+const characterSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    status: z.enum(['Alive', 'Dead'])
+});
+export type Character = z.infer<typeof characterSchema>;
 
-export async function getCharacter(id: number): Promise<any> {
+export async function getCharacter(id: number): Promise<Character> {
     try {
         const r = await axios.get(
             'https://rickandmortyapi.com/api/character/:id'
                 .replace(':id', id.toString())
         );
-        return r.data;
+        const character = characterSchema.parse(r.data)
+        return character;
     } catch (e) {
         if (axios.isAxiosError(e)) {
             throw new Error(`getCharacter: request failed for ID: ${id}`);

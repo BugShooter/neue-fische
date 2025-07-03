@@ -1,16 +1,22 @@
+import { Character } from "../api/getCharacter";
 import { getCharacterName, isCharacterAlive } from "./characterService";
 import axios, { AxiosError } from "axios";
 
 jest.mock('axios');
 
+afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+});
+
 test("Mock axios module response", async () => {
 
-    (axios.get as jest.Mock).mockResolvedValue({
-        data: {
-            id: 1,
-            name: 'Rick Sanchez'
-        }
-    });
+    const data: Character = {
+        id: 1,
+        name: 'Rick Sanchez',
+        status: "Alive"
+    };
+    (axios.get as jest.Mock).mockResolvedValue({ data });
     const name = await getCharacterName(1);
     expect(name).toBe("Rick Sanchez");
 });
@@ -47,13 +53,12 @@ describe("Task 5: Status-Based Logic", () => {
 
     // [x] Mock status "Dead" and expect false
     test("status is 'Dead' -> false", async () => {
-        (axios.get as jest.Mock).mockResolvedValue({
-            data: {
-                // id: 1,
-                // name: "Test name",
-                status: "Dead"
-            }
-        });
+        const data: Character = {
+            id: 1,
+            name: "Test name",
+            status: "Dead"
+        };
+        (axios.get as jest.Mock).mockResolvedValue({ data });
 
         const status = await isCharacterAlive(1);
         expect(status).toBe(false);
