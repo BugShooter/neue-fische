@@ -1,0 +1,1 @@
+import './excercise-001-singlton'
