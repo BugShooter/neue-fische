@@ -5,8 +5,6 @@ const err = console.error;
 
 // 1. Global Settings Manager
 
-log("1. Global Settings Manager")
-
 type Config = { [k: string]: string };
 
 class SettingsManager {
@@ -31,13 +29,13 @@ class SettingsManager {
     }
 }
 
-log('set settings');
-SettingsManager.getInstance().set('theme', 'dark');
-log('Settings:', SettingsManager.getInstance().get('theme'));
-log('reset settings');
-SettingsManager.reset();
-log('Settings:', SettingsManager.getInstance().get('theme'));
-log('Settings with default:', SettingsManager.getInstance().get('theme', 'default'));
-
-
-
+export function main() {
+    log("1. Global Settings Manager")
+    log('set settings');
+    SettingsManager.getInstance().set('theme', 'dark');
+    log('Settings:', SettingsManager.getInstance().get('theme'));
+    log('reset settings');
+    SettingsManager.reset();
+    log('Settings:', SettingsManager.getInstance().get('theme'));
+    log('Settings with default:', SettingsManager.getInstance().get('theme', 'default'));
+}
