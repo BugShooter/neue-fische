@@ -1,0 +1,14 @@
+[
+    {
+        "fruit": "apple",
+        "emoji": "🍏"
+    },
+    {
+        "fruit": "banana",
+        "emoji": "🍌"
+    },
+    {
+        "fruit": "cherry",
+        "emoji": "🍒"
+    }
+]
