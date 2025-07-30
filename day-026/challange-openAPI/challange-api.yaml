@@ -1,0 +1,84 @@
+openapi: 3.0.4
+info:
+  title: AWD OpenAPI anSwagger Challange
+  description: This is an API spetification in OpenAPI format created as part of the AWD Bootcamp
+  version: 1.0.0
+servers:
+- url: http://localhost:3000/
+paths:
+  /hello:
+    get:
+      parameters:
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Created
+
+  /users/{id}:
+    get:
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+              example:
+                message: 'User not found'
+                status: 404
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+    HttpError:
+      type: object
+      required: [ message, status ]
+      properties:
+        message:
+          type: string
+        status:
+          type: number
+      example:
+        message: 'Page not found'
+        status: 404
+    Error404:
+      type: object
+      required: [ message, status ]
+      properties:
+        message:
+          type: string
+        status:
+          type: number
+      example:
+        message: 'Entity not found'
+        status: 404
