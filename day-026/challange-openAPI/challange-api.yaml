@@ -20,6 +20,8 @@ paths:
         '400':
           description: Bad request
     post:
+      security:
+      - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -82,3 +84,7 @@ components:
       example:
         message: 'Entity not found'
         status: 404
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
