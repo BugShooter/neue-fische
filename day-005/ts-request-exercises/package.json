@@ -2,14 +2,14 @@
   "name": "day-005",
   "version": "1.0.0",
   "description": "TypeScript Networking Exercises: fetch & axios",
-  "main": "index.js",
+  "main": "exercieses-api-request.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "http-server ./ -p 8000",
     "build": "tsc --project tsconfig.json",
     "clean": "rm -rf dist",
     "dev": "tsc --project tsconfig.json --watch",
-    "start": "tsc --project tsconfig.json && node dist/index.js"
+    "start": "tsc --project tsconfig.json && node dist/exercieses-api-request.js"
   },
   "type": "module",
   "keywords": [],
