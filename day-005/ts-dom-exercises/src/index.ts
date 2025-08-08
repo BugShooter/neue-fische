@@ -17,6 +17,8 @@
 
     btn.addEventListener("click", e => {
         output.textContent = name.value
+        name.value = ""
+        name.focus()
     })
 })();
 
@@ -25,7 +27,7 @@
     const btn = document.getElementById("toggleBtn") as HTMLButtonElement;
     const text = document.getElementById("hiddenText") as HTMLElement;
     btn.addEventListener("click", e => {
-        text.style.display = text.style.display == "none" ? "block" : "none"
+        text.style.display =  getComputedStyle(text).display == "none" ? "block" : "none"
     })
 })();
 
@@ -34,13 +36,18 @@
     const input = document.getElementById("itemInput") as HTMLInputElement;
     const btn = document.getElementById("addBtn") as HTMLButtonElement;
     const list = document.getElementById("itemList") as HTMLUListElement;
-    btn.addEventListener("click", e => {
+    const addItem = () => {
         const text = input.value;
+        input.focus()
         if (!text) return;
         const li = document.createElement('li') as HTMLLIElement;
         li.textContent = text
         list.prepend(li)
         input.value = ""
+    }
+    btn.addEventListener("click", e => addItem())
+    input.addEventListener("keypress", (e: KeyboardEvent) => {
+        if (e.key === "Enter") addItem();
     })
 })();
 
@@ -49,8 +56,9 @@
     const input = document.getElementById("e5_itemInput") as HTMLInputElement;
     const btn = document.getElementById("e5_addBtn") as HTMLButtonElement;
     const list = document.getElementById("e5_itemList") as HTMLUListElement;
-    btn.addEventListener("click", e => {
+    const addItem = () => {
         const text = input.value;
+        input.focus()
         if (!text) return;
         const li = document.createElement('li') as HTMLLIElement;
         const textSpan = document.createElement('span') as HTMLSpanElement;
@@ -63,6 +71,10 @@
         li.append(delBtn)
         list.prepend(li)
         input.value = ""
+    }
+    btn.addEventListener("click", e => addItem())
+    input.addEventListener("keypress", (e: KeyboardEvent) => {
+        if (e.key === "Enter") addItem();
     })
 })();
 
@@ -122,9 +134,11 @@
     }
     const removeTaskHandler = (e: Event): void => {
         const btn = e.currentTarget
-        if (!(btn instanceof HTMLInputElement)) return;
-        const task = btn.parentElement as HTMLLIElement;
+        if (!(btn instanceof HTMLElement)) return;
+        const task = btn.parentElement;
+        if (!(task instanceof HTMLLIElement)) return;
         task.remove()
+        newTask.focus();
     }
     const createTask = (title: string): string => {
         const li = document.createElement("li")
@@ -134,8 +148,7 @@
         done.type = "checkbox"
         done.addEventListener("change", toggleDoneHandler)
 
-        const remove = document.createElement("input") as HTMLInputElement
-        remove.type = "button"
+        const remove = document.createElement("button") as HTMLButtonElement
         remove.style.backgroundColor = "red"
         remove.textContent = "X"
         remove.addEventListener("click", removeTaskHandler)
@@ -149,11 +162,21 @@
         li.append(remove)
         list.append(li)
 
+        newTask.value = ""
+        newTask.focus()
+
         return li.id
     }
     addBtn.addEventListener("click", () => {
+        newTask.focus();
         if (!newTask.value) return;
         createTask(newTask.value);
     })
-
+    newTask.addEventListener("keypress", (e: KeyboardEvent) => {
+        newTask.focus();
+        if (!newTask.value) return;
+        if (e.key === "Enter") {
+            createTask(newTask.value);
+        }
+    })
 })();
