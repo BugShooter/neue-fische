@@ -1,0 +1,21 @@
+{
+  "name": "ts-dom-exercises",
+  "version": "1.0.0",
+  "description": "These are a series of TypeScript exercises focused on DOM manipulation, which were completed as part of Advanced Web Development training.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --project tsconfig.json --watch",
+    "serve": "npx serve -p 3000 ./public",
+    "start": "npm run build && npm run serve",
+    "start:dev": "concurrently 'npm run dev' 'npm run serve'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
